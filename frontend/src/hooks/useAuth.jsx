@@ -10,6 +10,11 @@ export const useAuth = () => {
   // usamos o use Effect para identificar se o usuário esta logado ou não.
   useEffect(() => {
     if (user) {
+      if (user.errors) {
+        setAuth(false);
+        setLoading(false);
+        return;
+      }
       setAuth(true);
     } else {
       setAuth(false);
