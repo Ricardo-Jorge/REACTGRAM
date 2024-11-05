@@ -18,6 +18,7 @@ import {
   publishPhoto,
   resetMessage,
   getUserPhotos,
+  deletePhoto,
 } from "../../slices/photoSlice";
 
 const Profile = () => {
@@ -37,7 +38,7 @@ const Profile = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
 
-  // New form an d edit form refs
+  // New form and edit form refs
   const newPhotoForm = useRef();
   const editPhotoForm = useRef();
 
@@ -51,6 +52,12 @@ const Profile = () => {
     const image = e.target.files[0];
 
     setImage(image);
+  };
+
+  const resetComponentMessage = () => {
+    setTimeout(() => {
+      dispatch(resetMessage());
+    }, 2000);
   };
 
   const submitHandle = async (e) => {
@@ -68,9 +75,16 @@ const Profile = () => {
     }, new FormData());
     await dispatch(publishPhoto(photoFormData));
 
-    setTimeout(() => {
-      dispatch(resetMessage());
-    }, 2000);
+    setTitle("");
+
+    resetComponentMessage();
+  };
+
+  // Delete photo
+  const handleDelete = (id) => {
+    dispatch(deletePhoto(id));
+
+    resetComponentMessage();
   };
 
   if (loading) {
@@ -129,7 +143,13 @@ const Profile = () => {
                   />
                 )}
                 {id === userAuth._id ? (
-                  <p>actions</p>
+                  <div className="actions">
+                    <Link to={`/photos/${photo._id}`}>
+                      <BsFillEyeFill />
+                    </Link>
+                    <BsPencilFill />
+                    <BsXLg onClick={() => handleDelete(photo._id)} />
+                  </div>
                 ) : (
                   <Link className="btn" to={`/photos/${photo._id}`}>
                     ver
@@ -137,6 +157,7 @@ const Profile = () => {
                 )}
               </div>
             ))}
+          {photos.length === 0 && <p>Ainda não há fotos publicadas.</p>}
         </div>
       </div>
     </div>

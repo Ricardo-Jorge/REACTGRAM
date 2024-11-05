@@ -24,7 +24,7 @@ const insertPhoto = async (req, res) => {
   // If photo was created successfully, return data
   if (!newPhoto) {
     res.status(422).json({
-      errors: ["Houve um problema, por favor tente novamente mais tarde."],
+      errors: ["Houve um erro, por favor tente novamente mais tarde."],
     });
     return;
   }

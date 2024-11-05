@@ -31,7 +31,7 @@ const imageUpload = multer({
       // upload only png and jpg fprmats
       return cb(new Error("Por favor, envie apenas png ou jpg!"));
     }
-    cb(undefined, true);
+    cb(null, true);
   },
 });
 
