@@ -102,6 +102,7 @@ const getPhotoById = async (req, res) => {
     res.status(200).json(photo);
   } catch (error) {
     res.status(404).json({ errors: ["Foto não encontrada."] });
+    return;
   }
 };
 
