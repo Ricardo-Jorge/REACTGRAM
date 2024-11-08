@@ -18,6 +18,11 @@
   margin-right: 2em;
 }
 
+.profile-btn {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
 .new-photo {
   padding: 1em;
   border-bottom: 1px solid #363636;
